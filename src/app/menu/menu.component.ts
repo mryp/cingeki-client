@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IndexmakerService } from '../indexmaker.service';
 
 @Component({
   selector: 'app-menu',
@@ -25,20 +26,23 @@ export class MenuComponent implements OnInit {
    * コンストラクタ
    */
   constructor(
-    private router: Router
+    private router: Router,
+    private indexMarker:IndexmakerService
   ) { }
 
   /**
    * 初期実行メソッド
    */
   ngOnInit() {
+    this.indexMarker.load();
+    this.storyNumber = this.indexMarker.getIndex();
   }
 
   /**
    * 話数を指定して表示
    */
   showStroyNumber() {
-    console.log("showStroyNumber num=" + this.storyNumber);
-    this.router.navigate(["/story", this.storyNumber]);
+    this.indexMarker.setIndex(this.storyNumber);
+    this.router.navigate(["/story"]);
   }
 }

@@ -12,12 +12,13 @@ import { StoryComponent } from './story/story.component';
 import { RegistComponent } from './regist/regist.component';
 
 import { StoryinfoService } from './storyinfo.service';
+import { IndexmakerService } from './indexmaker.service';
 
 //ルーター
 const appRoutes = [
   { path: "menu", component:MenuComponent },
   { path: "regist", component:RegistComponent },
-  { path: "story/:id", component:StoryComponent },
+  { path: "story", component:StoryComponent },
   { path: '', redirectTo: '/menu', pathMatch: 'full' },
 ]
 
@@ -35,7 +36,10 @@ const appRoutes = [
     RouterModule.forRoot(appRoutes),
     MaterialModule
   ],
-  providers: [StoryinfoService],
+  providers: [
+    StoryinfoService,
+    IndexmakerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

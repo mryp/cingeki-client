@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Response } from "@angular/http";
 import { StoryinfoService } from "../storyinfo.service"
 
 @Component({
@@ -47,12 +48,30 @@ export class RegistComponent implements OnInit {
     this.storyService.sendRegist(this.sendNumber, this.sendTitle, this.sendUrl,
      (responce, error) => {
         if (responce != null) {
-          this.responceRegist = responce.text();
+          this.responceRegist = this.getSuccessMessage(responce);
         } else if (error != null) {
-          this.responceRegist = error.status + ":" + error.statusText;
+          this.responceRegist = this.getErrorMessage(error);
         }
       }
     );
+  }
+
+  /**
+   * 処理成功時のメッセージを取得する
+   */
+  getSuccessMessage(responce:Response):string {
+    return responce.text();
+  }
+
+  /**
+   * 処理失敗時のメッセージを取得する
+   */
+  getErrorMessage(error:any):string {
+    let errorText = error.status + ":" + error.statusText;
+    if (error.status == 0 || error.statusText == "") {
+      errorText = "サーバー接続エラー";
+    }
+    return errorText;
   }
 
   /**
@@ -62,9 +81,9 @@ export class RegistComponent implements OnInit {
     this.storyService.sendRegistMatome(this.sendMatomeUrl, this.sendMatomeOverwrite,
       (responce, error) => {
         if (responce != null) {
-          this.responceRegistMatome = responce.text();
+          this.responceRegistMatome = this.getSuccessMessage(responce);
         } else if (error != null) {
-          this.responceRegistMatome = error.status + ":" + error.statusText;
+          this.responceRegistMatome = this.getErrorMessage(error);
         }
       }
     );

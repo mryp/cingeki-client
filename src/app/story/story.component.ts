@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Response } from "@angular/http";
 import { StoryinfoService } from "../storyinfo.service"
+import { IndexmakerService } from '../indexmaker.service';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -19,13 +20,13 @@ export class StoryComponent implements OnInit {
   constructor(
     private storyService:StoryinfoService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private indexMarker:IndexmakerService
   ) { }
 
   ngOnInit() {
-    this.storyNumber = this.route.snapshot.params['id'];
-    this.showStory(this.storyNumber);
     console.log("ngOnInit");
+    this.showStory(this.indexMarker.getIndex());
   }
 
   backToMenu() {
@@ -34,6 +35,8 @@ export class StoryComponent implements OnInit {
 
   showStory(number:number) {
     this.storyNumber = number;
+    this.indexMarker.setIndex(this.storyNumber);
+
     this.storyService.sendStory(number,
       (responce, error) => {
         if (responce != null) {
@@ -56,6 +59,9 @@ export class StoryComponent implements OnInit {
 
   setErrorStory(error:any) {
     let errorText = error.status + ":" + error.statusText;
+    if (error.status == 0 || error.statusText == "") {
+      errorText = "サーバー接続エラー";
+    }
     console.log(errorText);
     this.storyTitle = errorText;
     this.storyImageUrl = "assets/img/noimage.png";
@@ -68,7 +74,6 @@ export class StoryComponent implements OnInit {
       return;
     }
     this.showStory(this.storyNextNumber);
-    this.router.navigate(["/story", this.storyNumber]);
     this.resetPosition();
   }
 
@@ -77,7 +82,6 @@ export class StoryComponent implements OnInit {
       return;
     }
     this.showStory(this.storyPrevNumber);
-    this.router.navigate(["/story", this.storyNumber]);
     this.resetPosition();
   }
 

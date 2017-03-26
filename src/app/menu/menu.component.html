@@ -1,0 +1,21 @@
+<md-toolbar color="primary">
+  <span>{{title}}</span>
+</md-toolbar>
+<div class="app-content">
+  <md-card>
+    <md-card-header>
+      <md-card-title>指定話を見る</md-card-title>
+    </md-card-header>
+    <md-input-container>
+      <input mdInput placeholder="話数" [(ngModel)]="storyNumber">
+    </md-input-container>
+
+    <button md-raised-button color="accent" (click)="showStroyNumber()">表示する</button>
+  </md-card>
+  <md-card>
+    <md-card-header>
+      <md-card-title>登録処理</md-card-title>
+    </md-card-header>
+    <button md-raised-button color="accent" routerLink="/regist">登録する</button>
+  </md-card>
+</div>

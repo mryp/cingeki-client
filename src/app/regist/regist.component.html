@@ -1,0 +1,51 @@
+<md-toolbar color="primary">
+  <button md-icon-button (click)="backToMenu()">
+    <i class="material-icons">arrow_back</i>
+  </button>
+  <span>{{title}}</span>
+</md-toolbar>
+<div class="app-content">
+  <md-card>
+    <md-card-header>
+      <md-card-title>1件のデータを登録する</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <section>
+        <md-input-container>
+          <input mdInput placeholder="URL" [(ngModel)]="sendUrl" size="64">
+        </md-input-container>
+      </section>
+      <section>
+        <md-input-container>
+          <input mdInput placeholder="話数" [(ngModel)]="sendNumber" size="5">
+        </md-input-container>
+      </section>
+      <section>
+        <md-input-container>
+          <input mdInput placeholder="タイトル" [(ngModel)]="sendTitle" size="40">
+        </md-input-container>
+      </section>
+    </md-card-content>
+    <button md-raised-button color="accent" (click)="sendRegist()">登録開始</button>
+    <p>{{responceRegist}}</p>
+  </md-card>
+
+  <md-card>
+    <md-card-header>
+      <md-card-title>まとめサイトから登録する</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <section>
+        <md-input-container>
+          <input mdInput placeholder="URL" [(ngModel)]="sendMatomeUrl" size="64">
+        </md-input-container>
+      </section>
+      <section>
+        <md-checkbox [(ngModel)]="sendMatomeOverwrite">すでに同じものがあった場合は上書きする</md-checkbox>
+      </section>
+
+    </md-card-content>
+    <button md-raised-button color="accent" (click)="sendRegistMatome()">登録開始</button>
+    <p>{{responceRegistMatome}}</p>
+  </md-card>
+</div>

@@ -1,0 +1,19 @@
+<md-toolbar color="primary">
+  <button md-icon-button (click)="backToMenu()">
+    <i class="material-icons">arrow_back</i>
+  </button>
+  <span>{{storyTitle}}</span>
+</md-toolbar>
+<div class="app-content">
+  <md-card>
+    <img md-card-image src="{{storyImageUrl}}">
+    <md-card-actions>
+      <div style="float: left">
+        <button md-button (click)="prevImage()">前へ</button>
+      </div>
+      <div style="text-align: right">
+        <button md-button (click)="nextImage()">次へ</button>
+      </div>
+    </md-card-actions>
+  </md-card>
+</div>

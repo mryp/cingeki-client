@@ -32,8 +32,10 @@ export class IndexmakerService {
    * @param i
    */
   setIndex(i:number) {
-    this.index = i;
-    this.save();
+    if (i > 0) {
+      this.index = i;
+      this.save();
+    }
   }
 
   /**

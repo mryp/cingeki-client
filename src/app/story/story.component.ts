@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Response } from "@angular/http";
 import { StoryinfoService } from "../storyinfo.service"
@@ -16,6 +16,7 @@ export class StoryComponent implements OnInit {
   storyImageUrl:string;
   storyNextNumber:number;
   storyPrevNumber:number;
+  @ViewChild('containerbody') containerBody: HTMLElement;
 
   constructor(
     private storyService:StoryinfoService,
@@ -86,8 +87,9 @@ export class StoryComponent implements OnInit {
   }
 
   resetPosition() {
+    let cbBody = document.getElementById("container-body");
     setTimeout(()=> {
-      window.scroll(0, 0);
+      cbBody.scrollTop = 0;
     }, 1);
   }
 }

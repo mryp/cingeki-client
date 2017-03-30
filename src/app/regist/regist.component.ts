@@ -21,6 +21,8 @@ export class RegistComponent implements OnInit {
   sendMatomeOverwrite:boolean = false
   responceRegistMatome:string = "";
 
+  responceRegistMatomeAll:string="";
+
   //メソッド
   //------------------------------------------------
   /**
@@ -87,5 +89,31 @@ export class RegistComponent implements OnInit {
         }
       }
     );
+  }
+
+  sendRegistMatomeAll() {
+    //ここにURLをまとめて書くとループして取得する
+    let urlList:string[] = [
+    ];
+
+    this.sendRegistMatomeAllItem(urlList, 0);
+  }
+
+  sendRegistMatomeAllItem(urlList:string[], index:number) {
+    if (index >= urlList.length) {
+      return; //終了
+    }
+
+    let url = urlList[index];
+    this.storyService.sendRegistMatome(url, false, (responce, error) => {
+      if (responce != null) {
+        console.log("OK: " + url);
+        this.responceRegistMatomeAll = this.getSuccessMessage(responce);
+        this.sendRegistMatomeAllItem(urlList, index+1);
+      } else if (error != null) {
+        console.log("NG: " + url);
+        this.responceRegistMatomeAll = this.getErrorMessage(error);
+      }
+    });
   }
 }

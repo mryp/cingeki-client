@@ -26,7 +26,6 @@ export class StoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("ngOnInit");
     this.showStory(this.indexMarker.getIndex());
   }
 

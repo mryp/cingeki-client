@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from "@angular/http";
 
+import { environment } from '../environments/environment';
+
 //クラスで使用する定数
 namespace Const{
-  export const BASE_URL_DEV = "http://localhost:8080/";
-  export const BASE_URL_PROD = "http://www.poringsoft.net/go/cingeki/";
   export const API_REGIST = "api/regist";
   export const API_REGIST_MATOME = "api/regist/matome";
   export const API_STORY = "api/story";
@@ -26,7 +26,7 @@ export class StoryinfoService {
   ) { }
 
   private getApiUrl(apiName:string):string {
-    return Const.BASE_URL_DEV + apiName;
+    return environment.apiBaseUrl + apiName;
   }
 
   /**

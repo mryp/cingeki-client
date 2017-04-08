@@ -1,14 +1,23 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, AnimationTransitionEvent } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Response } from "@angular/http";
 import { StoryinfoService } from "../storyinfo.service"
 import { IndexmakerService } from '../indexmaker.service';
 import 'rxjs/add/operator/switchMap';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
-  styleUrls: ['./story.component.css']
+  styleUrls: ['./story.component.css'],
+  animations: [
+    trigger('imageFade', [
+      state('show' , style({ opacity: 1 })),
+      state('hidden', style({ opacity: 0 })),
+      transition('hidden => show', [style({opacity: 0, }), animate('0.5s ease')]),
+      //transition('show => hidden', [style({opacity: 1, }), animate('0.2s ease')]),
+    ])
+  ]
 })
 export class StoryComponent implements OnInit {
   storyNumber:number;
@@ -16,6 +25,8 @@ export class StoryComponent implements OnInit {
   storyImageUrl:string;
   storyNextNumber:number;
   storyPrevNumber:number;
+  nowloading:boolean = true;
+  imageVisible:string = "hidden";
   @ViewChild('containerbody') containerBody: HTMLElement;
 
   constructor(
@@ -23,7 +34,8 @@ export class StoryComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private indexMarker:IndexmakerService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.showStory(this.indexMarker.getIndex());
@@ -34,6 +46,7 @@ export class StoryComponent implements OnInit {
   }
 
   showStory(number:number) {
+    this.initLoadImage();
     this.storyNumber = number;
     this.indexMarker.setIndex(this.storyNumber);
 
@@ -46,6 +59,22 @@ export class StoryComponent implements OnInit {
         }
       }
     );
+  }
+
+  initLoadImage() {
+    this.nowloading = true;
+    this.imageVisible = "hidden";
+    this.storyTitle = "読み込み中...";
+    //this.storyImageUrl = "";
+  }
+
+  completeLoadImage() {
+    this.nowloading = false;
+    this.imageVisible = "show";
+  }
+
+  imageAnimationDone(event:AnimationTransitionEvent) {
+    console.log("imageAnimationDone event:" + event.phaseName + " time:" +  event.totalTime + " state:" + event.fromState + " => " + event.toState);
   }
 
   setSuccessStory(responce:Response) {

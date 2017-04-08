@@ -8,8 +8,12 @@
   <div class="container-body" id="container-body">
     <div class="app-content">
       <md-card>
-        <img md-card-image src="{{storyImageUrl}}">
-        <md-card-actions>
+        <!--<md-spinner *ngIf="nowloading" class="image-spinner"></md-spinner>-->
+        <img md-card-image src="{{storyImageUrl}}" class="image-main"
+          (load)="completeLoadImage()"
+          [@imageFade]="imageVisible"
+          (@imageFade.done)="imageAnimationDone($event)">
+        <md-card-actions *ngIf="!nowloading">
           <div style="float: left">
           </div>
           <div style="text-align: right">

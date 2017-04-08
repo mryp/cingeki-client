@@ -30,7 +30,7 @@ export class StoryComponent implements OnInit {
   }
 
   backToMenu() {
-    this.router.navigate(["/menu"]);
+    this.router.navigate(["/"]);
   }
 
   showStory(number:number) {

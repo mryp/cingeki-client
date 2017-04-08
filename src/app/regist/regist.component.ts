@@ -40,7 +40,7 @@ export class RegistComponent implements OnInit {
   }
 
   backToMenu() {
-    this.router.navigate(["/menu"]);
+    this.router.navigate(["/"]);
   }
 
   /**

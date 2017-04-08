@@ -17,10 +17,9 @@ import { IndexmakerService } from './indexmaker.service';
 
 //ルーター
 const appRoutes = [
-  { path: "menu", component:MenuComponent },
+  { path: "", component:MenuComponent },
   { path: "regist", component:RegistComponent },
   { path: "story", component:StoryComponent },
-  { path: '', redirectTo: '/menu', pathMatch: 'full' },
 ]
 
 @NgModule({

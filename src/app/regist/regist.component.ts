@@ -94,6 +94,7 @@ export class RegistComponent implements OnInit {
   sendRegistMatomeAll() {
     //ここにURLをまとめて書くとループして取得する
     let urlList:string[] = [
+      //"http://cggekijo.blog.fc2.com/blog-entry-1.html",
     ];
 
     this.sendRegistMatomeAllItem(urlList, 0);

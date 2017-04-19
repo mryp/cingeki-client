@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Input, AnimationTransitionEvent } from '@angular/core';
+import { Component, ViewChild, OnInit, Input, AnimationTransitionEvent, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Response } from "@angular/http";
 import { StoryinfoService } from "../storyinfo.service"
@@ -28,6 +28,7 @@ export class StoryComponent implements OnInit {
   nowloading:boolean = true;
   imageVisible:string = "hidden";
   @ViewChild('containerbody') containerBody: HTMLElement;
+  isOverCardWidth:boolean = false;
 
   constructor(
     private storyService:StoryinfoService,
@@ -38,7 +39,13 @@ export class StoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onScreenResize();
     this.showStory(this.indexMarker.getIndex());
+  }
+
+  @HostListener("window:resize")
+  onScreenResize() {
+    this.isOverCardWidth = innerWidth >= 480;
   }
 
   backToMenu() {

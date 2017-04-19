@@ -2,3 +2,9 @@
   margin: 16px;
   width: 100%;
 }
+
+.max-over-card {
+  max-width: 480px;
+  margin: 16px auto;
+}
+

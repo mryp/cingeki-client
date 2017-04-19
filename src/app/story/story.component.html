@@ -7,7 +7,7 @@
   </md-toolbar>
   <div class="container-body" id="container-body">
     <div class="app-content">
-      <md-card>
+      <md-card [class.max-over-card]="isOverCardWidth">
         <!--<md-spinner *ngIf="nowloading" class="image-spinner"></md-spinner>-->
         <img md-card-image src="{{storyImageUrl}}" class="image-main"
           (load)="completeLoadImage()"

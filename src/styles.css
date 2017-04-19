@@ -18,6 +18,12 @@ body {
   width: 100%;
 }
 
+.header-title {
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
 .container-body {
   flex: 1;
   overflow-y: auto;
